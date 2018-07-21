@@ -1,0 +1,27 @@
+FROM alpine:3.8
+
+RUN apk update
+RUN apk add vips-dev fftw-dev --update-cache --repository https://dl-3.alpinelinux.org/alpine/edge/testing/
+RUN apk add \
+  bash \
+  ffmpeg \
+  git \
+  g++ \
+  make \
+  python2 \
+  nodejs \
+  npm \
+  openssl \
+  yarn
+
+ENV NODE_CONFIG ""
+
+RUN addgroup -g 1000 -S peertube && \
+    adduser -u 1000 -S peertube -G peertube
+
+WORKDIR /app
+RUN chown peertube:peertube .
+
+USER peertube
+
+EXPOSE 3000 9000

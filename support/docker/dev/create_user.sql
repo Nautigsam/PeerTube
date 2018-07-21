@@ -1,3 +1,15 @@
 create database peertube_dev;
 create user peertube password 'peertube';
 grant all privileges on database peertube_dev to peertube;
+create database peertube_test1;
+grant all privileges on database peertube_test1 to peertube;
+create database peertube_test2;
+grant all privileges on database peertube_test2 to peertube;
+create database peertube_test3;
+grant all privileges on database peertube_test3 to peertube;
+create database peertube_test4;
+grant all privileges on database peertube_test4 to peertube;
+create database peertube_test5;
+grant all privileges on database peertube_test5 to peertube;
+create database peertube_test6;
+grant all privileges on database peertube_test6 to peertube;

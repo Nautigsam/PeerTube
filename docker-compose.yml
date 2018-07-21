@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres:10-alpine
+    environment:
+      - POSTGRES_USER=peertube
+      - POSTGRES_PASSWORD=peertube
+      - POSTGRES_DB=peertube_dev
+    expose:
+      - 5432
+  redis:
+    image: redis:alpine
+    expose:
+      - 6379
+  web:
+    depends_on:
+      - db
+      - redis
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: peertube-dev:latest
+    environment:
+      - 'NODE_CONFIG={"listen":{"hostname":"0.0.0.0"},"database":{"hostname":"db"},"redis":{"hostname":"redis"}}'
+    volumes:
+      - ./:/app/
+    command: "npm run dev"
+    ports:
+      - 3000:3000
+      - 9000:9000
+  test:
+    build:
+      context: ./support/docker/dev
+      dockerfile: Dockerfile
+    image: peertube-test:latest
